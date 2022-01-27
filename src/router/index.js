@@ -1,19 +1,60 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import Checklist from '../views/default/Checklist.vue'
+import About from '../views/default/About.vue'
+import Tipps from '../views/default/Tipps.vue'
+import Teilen from '../views/default/Teilen.vue'
+import Geteilt from '../views/default/Geteilt.vue'
+import Account from '../views/default/Account.vue'
+import ServiceList from '../views/default/ServiceList.vue'
+import Login from '../views/login/Login.vue'
+import Registrierung from '../views/login/Register.vue'
+
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Checklist',
+    component: Checklist
   },
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: About
+  },
+  {
+    path: '/tipps',
+    name: 'Tipps',
+    component: Tipps
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/dienstleister',
+    name: 'ServiceList',
+    component: ServiceList
+  },
+  {
+    path: '/registrierung',
+    name: 'Registrierung',
+    component: Registrierung
+  },
+  {
+    path: '/teilen',
+    name: 'Teilen',
+    component: Teilen
+  },
+  {
+    path: '/account',
+    name: 'Account',
+    component: Account
+  },
+  {
+    path: '/geteilt',
+    name: 'Geteilt',
+    component: Geteilt
   }
 ]
 

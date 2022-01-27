@@ -1,0 +1,89 @@
+{
+  "ea": [
+    {
+      "id": "1",
+      "text": "Packen",
+      "date": "12.14.2222",
+      "checked": true
+    },
+    {
+      "id": "2",
+      "text": "Packen 2",
+      "date": "12.14.2222",
+      "checked": true
+    },
+    {
+      "id": "3",
+      "text": "Packen f",
+      "date": "12.14.2222",
+      "checked": false
+    },
+    {
+      "id": "4",
+      "text": "PackenPacken",
+      "date": "12.14.2222",
+      "checked": false
+    },
+    {
+      "id": "5",
+      "text": "Packen",
+      "date": "12.14.2222",
+      "checked": false
+    },
+    {
+      "id": "6",
+      "text": "Packen lulz",
+      "date": "",
+      "checked": false
+    }
+  ],
+  "sp": [
+    {
+      "name": "Abc GmbH",
+      "offers": [
+        {
+          "id": "3521",
+          "angebot": "Anhänger",
+          "kaution": "30",
+          "preispkm": "18",
+          "preisph": "2.50"
+        },
+        {
+          "id": "3527",
+          "angebot": "Bully",
+          "kaution": "50",
+          "preispkm": "22",
+          "preisph": "10"
+        }
+      ]
+    },
+    {
+      "name": "Auto AG",
+      "offers": [
+        {
+          "id": "2421",
+          "angebot": "Anhänger",
+          "kaution": "20",
+          "preispkm": "16",
+          "preisph": "3"
+        },
+        {
+          "id": "3233",
+          "angebot": "Bully",
+          "kaution": "55",
+          "preispkm": "20",
+          "preisph": "12"
+        }
+      ]
+    }
+  ],
+  "account": {
+    "name": "Max Mustermann ",
+    "email": "a@a.com",
+    "passwort": "a"
+  },
+  "login": {
+    "email": "bob@bob.bob",
+    "passwort": "a"
+  }
+}
