@@ -6,6 +6,13 @@
                 {{entry.text}} 
             </div>
         </li>
+        <div id="name_box">
+            <div :key="name" v-for="name in this.name_list">
+                <p class="name" @click="removeName(name)">{{name}}, </p>
+            </div>
+        </div>
+        
+        
         <div id="date"> {{entry.date}} </div>
 
         <div id="add" @click="this.show = !this.show;">
@@ -14,14 +21,11 @@
 
         <div v-show="show" class="show"> 
             <div class="box">
-                <input type="text" v-model="name" name="name" placeholder="Text ändern..." />
-                <input type="text" v-model="date" name="date" placeholder="Datum ändern" />
+                <input type="text" v-model="name" name="name" placeholder="Namen eintragen" />
             </div>
-            <div class="button" @click="edit"> Ändern</div>
+            <div class="button" @click="add"> Hinzufügen</div>
         </div>
     </ul>
-    
-    
 </template>
 
 <script>
@@ -35,23 +39,23 @@ export default {
             show: false,
             name: "",
             date: "",
+            name_list: [],
         }
     },
 	methods: {
 		log(id) {
             navigator.clipboard.writeText(id);
         },
-        async edit() {
+        async add() {
             if(!this.name) {
-                alert("Bitte einen Text angeben!")
+                alert("Bitte einen Namen angeben!")
                 return
             }
             const newEntry = {
                 id: this.entry.id,
-                text: this.name,
-                datum: this.date
+                text: this.name
             }
-            const response = await fetch('api/eintrag/id/'+newEntry.id+'/update' , {
+            const response = await fetch('api' , {
                 method: 'PUT',
                 headers: {
                     'Content-type': 'application/json',
@@ -59,18 +63,22 @@ export default {
                 body: JSON.stringify(newEntry)
             })
             const data = await response.json()
-
+            this.name_list.push(this.name)
             this.show = false;
             this.name = ""
-            this.date = ""
         },
         async del(id) {
-            if ( confirm("Sind sie sicher, dass sie den Eintrag löschen wollen?")) {
+            if ( confirm("Sind Sie sich sicher, dass sie den Eintrag löschen wollen?")) {
                 const response = await fetch('../api/eintrag/id/'+id+'/löschen', {
                     method: 'DELETE'
                 })
 		    }
 	    },
+        removeName(name) {
+            if (confirm("Sind Sie sich sicher, dass sie "+name+" von dem Eintrag entfernen wollen?")) {
+                this.name_list.splice(this.name_list.indexOf(name), 1)
+            }
+        },
         async toggleCheckbox() {
             // Soll ein Eintrag toggeln oder einmal abgehakt und fertig? 
             const newEntry = {
@@ -125,6 +133,23 @@ li {
     right: 5px;
     top: 5px;
     margin-right: 100px;
+}
+
+#name_box {
+    position: absolute;
+    top: 5px;
+    left: 20vw;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.name {
+    margin: 0px;
+}
+
+.name:hover {
+    color: red;
 }
 
 .show {

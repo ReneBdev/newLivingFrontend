@@ -55,8 +55,7 @@ export default {
             var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
             if (this.new_mail.match(mailformat)) {
                 this.email_list.push(this.new_mail),
-                this.new_mail="",
-                console.log(this.email_list)
+                this.new_mail=""
             } else {
                 alert('Bitte eine gültige E-Mail angeben.'),
                 this.new_mail=""

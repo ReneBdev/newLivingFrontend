@@ -44,14 +44,14 @@ export default {
                 return
             }
 
-			document.cookie = "account="+this.email+"; SameSite=None;" // BIG TODO
+			//document.cookie = "account="+this.email+"; SameSite=None;"
 
 
 			const loginData = {
 				email: this.email,
 				passwort: this.pw,
 			}
-			const response = await fetch('/api/login', {
+			const response = await fetch('api/login', {
 				method: 'POST',
 				headers: {
 					'Content-type': 'application/json',
@@ -59,12 +59,14 @@ export default {
 				body: JSON.stringify(loginData)
 			})
 			if (response.status !== 500) {
+				console.log("NOT 500 ERROR STATUS")
 				//return
 			}
 			const data = await response.json()
-			const profile = await this.fetchProfile()
-			
-			window.location.href ="/"
+			//const profile = await this.fetchProfile()
+			console.log(document.cookie)
+			console.log(data)
+			//window.location.href ="/"
 			
 		},
 		async resetPassword() {
