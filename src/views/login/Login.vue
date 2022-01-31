@@ -29,11 +29,7 @@ export default {
 		}
 	},
 	methods: {
-		async fetchProfile(){
-			const response = await fetch('api/login')
-			const data = await response.json()
-			return data
-		},
+
 		async onSubmit() {
 			if (!this.email) {
                 alert('Bitte geben Sie eine E-Mail ein.')
@@ -43,10 +39,6 @@ export default {
                 alert('Bitte geben Sie ein Passwort ein.')
                 return
             }
-
-			//document.cookie = "account="+this.email+"; SameSite=None;"
-
-
 			const loginData = {
 				email: this.email,
 				passwort: this.pw,
@@ -58,24 +50,21 @@ export default {
 				},
 				body: JSON.stringify(loginData)
 			})
-			if (response.status !== 500) {
-				console.log("NOT 500 ERROR STATUS")
-				//return
-			}
 			const data = await response.json()
-			//const profile = await this.fetchProfile()
-			console.log(document.cookie)
-			console.log(data)
-			//window.location.href ="/"
-			
+			if (response.status !== 500) {
+				window.location.href ="/"
+			} else {
+				alert("Login fehlgeschlagen.")
+			}
 		},
 		async resetPassword() {
 			if (!this.email) {
                 alert('Bitte geben Sie eine E-Mail ein.')
                 return
             }
-			const response = await fetch('../api/registrierung/passwort-vergessen?email={'+this.email+'}')
+			const response = await fetch('api/registrierung/passwort-vergessen?email={'+this.email+'}')
 			const data = response.json()
+			
 		}
 	},
 	created() {

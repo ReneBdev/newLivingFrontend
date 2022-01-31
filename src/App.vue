@@ -6,7 +6,6 @@
 <script>
 import Header from  '@/components/Header.vue'
 
-//@login="loggedIn"
 export default {
 	name: 'App',
 	data() {
@@ -25,26 +24,22 @@ export default {
 				return false;
 			}
 		},
-		loggedIn(l) {
-			console.log(l)
-			this.angemeldet = l;
-			//this.$router.push('/')
-		}
-	},
-	created() {
-		if (document.cookie) {
-			console.log(document.cookie)
-			const cookie = document.cookie
-			.split('; ')
-			.find( row => row.startsWith ('account='))
-			.split('=')[1]
-			if (cookie) {
-				this.angemeldet = true;
+		async fetchProfile(){
+			const response = await fetch('api/account')
+			const data = await response.json()
+			if (response.status === 200) {
+				return data
 			}
+			return false
+		},
+	},
+	async created() {
+		const profile = await this.fetchProfile()
+		if (profile) {
+			this.angemeldet = true
 		} else {
-			console.log("No cookies found!")
+			this.angemeldet = false
 		}
-		
 	},
 }
 </script>

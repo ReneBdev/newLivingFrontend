@@ -25,7 +25,7 @@ export default {
 	},
 	methods: {
 		async fetchEntrys() {
-            const response = await fetch('api/sp') /* /dienstleistung/alle */
+            const response = await fetch('api/dienstleistung')
             const data = await response.json()
             return data
         }

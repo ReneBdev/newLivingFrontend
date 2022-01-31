@@ -1,10 +1,10 @@
 <template>
-    <h1> Checkliste </h1>
+    <h1 id="heading"> Checkliste </h1>
 	<div id="checklist">
 		<EntryList :entrylist="entrys" type="entry"/>
         
 	</div>
-    <div class="box" >
+    <div class="box"  v-show="angemeldet">
         <div class="button" id="send" @click="show=!show" >Eintrag hinzufügen</div>
     </div>
     
@@ -36,8 +36,11 @@ export default {
 	methods: {
 		async fetchEntrys() {
             const response = await fetch('api/eintrag')
-            const data = await response.json()
-            return data
+            if (response.status === 200) {
+                const data =  await response.json()
+                return data
+            }
+            return false
         },
         async addEntry() {
             if (!this.new_entry) {
@@ -58,7 +61,17 @@ export default {
         }
 	},
     async created() {
-        this.entrys = await this.fetchEntrys()
+        console.log("1")
+        const temp = await this.fetchEntrys() 
+        if (temp) {
+            console.log("PETER")
+            this.entrys = temp
+        } else {
+            console.log("hallo")
+            document.$router.push('/')
+            document.getElementById("heading").innerHTML = 'Sie sind nicht angemeldet.'
+        }
+        
     },
     
 }

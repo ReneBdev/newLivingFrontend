@@ -74,17 +74,7 @@ export default {
 		    }
 	    },
         async toggleCheckbox() {
-            // Soll ein Eintrag toggeln oder einmal abgehakt und fertig? 
-            const newEntry = {
-                id: this.entry.id,
-            }
-            const response = await fetch('../api/eintrag/id/'+newEntry.id+'/erledigt' , {
-                method: 'PUT',
-                headers: {
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify(newEntry)
-            })
+            const response = await fetch('../api/eintrag/id/'+this.entry.id+'/erledigt')
             const data = await response.json()
         }
 	},

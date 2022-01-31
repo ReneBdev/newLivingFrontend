@@ -26,7 +26,7 @@ export default {
 	},
 	methods: {
 		async fetchEntrys() {
-            const response = await fetch('api/ea') /* /eintrag/alle */
+            const response = await fetch('api/eintrag')
             const data = await response.json()
             return data
         },
