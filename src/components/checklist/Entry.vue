@@ -6,7 +6,7 @@
                 {{entry.text}} 
             </div>
         </li>
-        <div id="date"> {{entry.date}} </div>
+        <div id="date"> {{entry.datum}} </div>
 
         <div id="edit" @click="this.show = !this.show;">
             <img src="@/assets/bearbeiten.png" width="20" height="20"/>
@@ -49,13 +49,12 @@ export default {
                 return
             }
             const newEntry = {
-                id: this.entry.id,
                 text: this.name,
                 datum: this.date
             }
-            const response = await fetch('api/eintrag/id/'+newEntry.id+'/update' , {
+            const response = await fetch('api/eintrag/update?id='+this.entry.id , { 
                 method: 'PUT',
-                headers: {
+                headers: { 
                     'Content-type': 'application/json',
                 },
                 body: JSON.stringify(newEntry)
@@ -68,21 +67,27 @@ export default {
         },
         async del(id) {
             if ( confirm("Sind sie sicher, dass sie den Eintrag löschen wollen?")) {
-                const response = await fetch('../api/eintrag/id/'+id+'/löschen', {
+                const response = await fetch('../api/eintrag/löschen?id='+id, {
                     method: 'DELETE'
                 })
 		    }
 	    },
         async toggleCheckbox() {
-            const response = await fetch('../api/eintrag/id/'+this.entry.id+'/erledigt')
+            const response = await fetch('../api/eintrag/erledigt?id='+this.entry.id)
             const data = await response.json()
         }
 	},
+    created() {
+        if (this.entry.erledigt) {
+            document.getElementById("checked").checked=true
+        }
+    }
     //emits: ['delete', 'edit'],
 }
 </script>
-<style scoped>
 
+
+<style scoped>
 ul {
 	list-style-type: none;
 	padding: 3px;

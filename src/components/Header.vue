@@ -3,14 +3,14 @@
         <div id="header" v-show="!mobile">
             <Logo/>
             <h3>
-            <router-link id="account"  to="/account">{{this.account.name}}</router-link>
+            <router-link id="account"  to="/account">{{this.accName}}</router-link>
             <a class="logout" href="/" @click="logout" >Abmelden</a>
             </h3>
         </div>
         <div id="mobile" v-show="mobile">
             <Logo/>
             <h3>
-                <router-link id="account" style="font-size: 130%" to="/account">{{this.account.name}} </router-link>
+                <router-link id="account" style="font-size: 130%" to="/account">{{this.accName}} </router-link>
             </h3>
             <a class="logout" href="/" @click="logout" >Abmelden</a>
         </div>
@@ -45,11 +45,7 @@ export default {
     props: {
         mobile: Boolean,
         angemeldet: Boolean,
-    },
-    data() {
-        return {
-            account: {}
-        }
+        accName: String
     },
     components: {
         Logo,
@@ -61,17 +57,9 @@ export default {
             const response = await fetch('../api/ausloggen')
             const data = await response.json()
             window.location.href ="/"
-        },
-        async fetchAccount() {
-            const response = await fetch('api/account')
-            const data = await response.json()
-            return data
         }
     },
-    async created() {
-        if (this.angemeldet) {
-            this.account = await this.fetchAccount()
-        }
+    created() {
     }
 }
 </script>

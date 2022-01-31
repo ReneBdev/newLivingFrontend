@@ -1,6 +1,6 @@
 <template>
-	<Header :mobile="isMobile()" :angemeldet="angemeldet" />
-	<router-view /> 
+	<Header :mobile="isMobile()" :angemeldet="angemeldet" :accName="this.account.name"/>
+	<router-view :account="this.account"/> 
 </template>
 
 <script>
@@ -11,6 +11,7 @@ export default {
 	data() {
 		return {
 			angemeldet: false,
+			account: {}
 		}
 	},
 	components: {
@@ -34,8 +35,8 @@ export default {
 		},
 	},
 	async created() {
-		const profile = await this.fetchProfile()
-		if (profile) {
+		this.account = await this.fetchProfile()
+		if (this.account) {
 			this.angemeldet = true
 		} else {
 			this.angemeldet = false

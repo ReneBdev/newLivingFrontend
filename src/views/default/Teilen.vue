@@ -7,7 +7,7 @@
         </ul>
 	</div>
     <div v-show="has_link">
-        <p> Link zur Checkliste: <span>{{this.link}}</span> </p>
+        <p> Link zur Checkliste: <span>{{this.account.link}}</span> </p>
         <div id="button_container">
             <div class="button" id="kopieren" @click="kopieren">Kopieren</div>
             <div class="button" @click="deactivate" style="background: darkred; border-color: darkred">Link deaktivieren</div>
@@ -36,8 +36,7 @@ export default {
     },
 	data() {
         return {
-            link: "www.ichbineinlink.was",
-            has_link: true,
+            has_link: false,
             email_list: [],
             new_mail: ""
         }
@@ -75,10 +74,15 @@ export default {
 			const data = await response.json()
         },
         kopieren() {
-            navigator.clipboard.writeText(this.link);
+            navigator.clipboard.writeText(this.account.link);
             document.getElementById("kopieren").innerHTML = 'Kopiert!'
         },
 	},
+    async created() {
+        if (this.account.link) {
+            has_link = true
+        }
+    }
 }
 </script>
 

@@ -4,7 +4,7 @@
 		<EntryList :entrylist="entrys" type="entry"/>
         
 	</div>
-    <div class="box"  v-show="angemeldet">
+    <div class="box" >
         <div class="button" id="send" @click="show=!show" >Eintrag hinzufügen</div>
     </div>
     
@@ -61,14 +61,11 @@ export default {
         }
 	},
     async created() {
-        console.log("1")
         const temp = await this.fetchEntrys() 
         if (temp) {
-            console.log("PETER")
             this.entrys = temp
         } else {
-            console.log("hallo")
-            document.$router.push('/')
+            this.$router.push('/login')
             document.getElementById("heading").innerHTML = 'Sie sind nicht angemeldet.'
         }
         
