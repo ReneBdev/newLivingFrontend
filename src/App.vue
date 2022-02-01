@@ -1,11 +1,10 @@
 <template>
 	<Header :mobile="isMobile()" :angemeldet="angemeldet" :accName="this.account.name"/>
-	<router-view :account="this.account"/> 
+	<router-view :account="this.account" @refresh="refresh"/> 
 </template>
 
 <script>
 import Header from  '@/components/Header.vue'
-
 export default {
 	name: 'App',
 	data() {
@@ -33,6 +32,9 @@ export default {
 			}
 			return false
 		},
+	},
+	async refresh() {
+		this.account = await this.fetchProfile()
 	},
 	async created() {
 		this.account = await this.fetchProfile()

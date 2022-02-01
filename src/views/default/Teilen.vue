@@ -45,10 +45,12 @@ export default {
 		async requestLink() {
             const response = await fetch('../api/link/neu')
 			const data = await response.json()
+            $emit('refresh')
         },
         async deactivate() {
             const response = await fetch('../api/link/deaktivieren')
 			const data = await response.json()
+            $emit('refresh')
         },
         addEmail() {
             var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
@@ -80,9 +82,10 @@ export default {
 	},
     async created() {
         if (this.account.link) {
-            has_link = true
+            this.has_link = true
         }
-    }
+    },
+    emits: ['refresh']
 }
 </script>
 

@@ -52,9 +52,10 @@ const routes = [
     component: Account
   },
   {
-    path: '/geteilt',
+    path: '/geteilt/:code',
     name: 'Geteilt',
-    component: Geteilt
+    component: Geteilt,
+    params: true
   }
 ]
 

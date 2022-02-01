@@ -1,6 +1,9 @@
 <template>
     <h3 @click="toggle" > {{this.title}} </h3>
-    <p v-show="!this.collapsed" > {{this.content}} </p>
+    <div class="box">
+        <p v-show="!this.collapsed" > {{this.content}} </p>
+    </div>
+    
        
 </template>
 
@@ -40,6 +43,17 @@ h3 {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
+p {
+    max-width: 800px;
 }
 
 

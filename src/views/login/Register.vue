@@ -63,7 +63,6 @@ export default {
                 body: JSON.stringify(newAccount)
             })
             const data = await response.json()
-
         }
     }
 };

@@ -1,7 +1,7 @@
 <template>
-    <h1> Checkliste von {{this.name}} </h1>
+    <h1> Umzugsplan von {{this.name}} </h1>
 	<div id="checklist">
-		<EntryList :entrylist="entrys" type="shared" />
+		<EntryList :entrylist="entrys" type="shared" :code="this.code" />
 	</div>
 </template>
 
@@ -19,6 +19,7 @@ export default {
             name: "ERRROR",
             new_entry: "",
             date: "",
+            code: ""
         }
     },
 	components: {
@@ -26,33 +27,21 @@ export default {
 	},
 	methods: {
 		async fetchEntrys() {
-            const response = await fetch('api/eintrag')
+            const response = await fetch('../api/link/id/'+this.code)
+            if ( response.status !== 200) {
+                alert("Falscher Code!")
+                this.$router.push('/')
+            }
             const data = await response.json()
             return data
         },
-        async addEntry() {
-            if (!this.new_entry) {
-                alert("Bitte einen Stichpunkt angeben!")
-            }
-            const newEntry = {
-                text: this.new_entry,
-                datum: this.date,
-            }
-            const response = await fetch('../api/eintrag/neu', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify(newEntry)
-            })
-            const data = await response.json()
-        }
 	},
     async created() {
-        this.name = this.$route.query.name;
-        this.entrys = await this.fetchEntrys()
-    },
-    
+        this.code = this.$route.params.code
+        const data = await this.fetchEntrys()
+        this.name = data.name
+        this.entrys = data.eintragList
+    }
 }
 </script>
 
@@ -67,7 +56,6 @@ export default {
 }
 
 ul {
-
     text-align: center;
     list-style-type: none;
     max-width: 800px;

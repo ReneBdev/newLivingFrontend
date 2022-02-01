@@ -1,8 +1,7 @@
 <template>
     <ul>
-        <li><input type="checkbox" id="checked" v-model="this.entry.checked" name="checked" @click="toggleCheckbox" /></li>
         <li>
-            <div class="entry" @click="log(entry.text)">
+            <div class="entry" :class="[entry.erledigt ? 'green' : 'red' ]" >
                 {{entry.text}} 
             </div>
         </li>
@@ -33,6 +32,7 @@ export default {
 	name: 'Entry',
 	props: {
         entry: Object,
+        code: String
 	},
     data() {
         return {
@@ -43,58 +43,33 @@ export default {
         }
     },
 	methods: {
-		log(id) {
-            navigator.clipboard.writeText(id);
-        },
         async add() {
             if(!this.name) {
                 alert("Bitte einen Namen angeben!")
                 return
             }
-            const newEntry = {
-                id: this.entry.id,
-                text: this.name
+            const addName = {
+                eintragId: this.entry.id,
+                name: this.name
             }
-            const response = await fetch('api' , {
-                method: 'PUT',
+            const response = await fetch('../../api/link/id/'+this.code+'/eintrag' , {
+                method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
                 },
-                body: JSON.stringify(newEntry)
+                body: JSON.stringify(addName)
             })
             const data = await response.json()
             this.name_list.push(this.name)
             this.show = false;
             this.name = ""
         },
-        async del(id) {
-            if ( confirm("Sind Sie sich sicher, dass sie den Eintrag löschen wollen?")) {
-                const response = await fetch('../api/eintrag/id/'+id+'/löschen', {
-                    method: 'DELETE'
-                })
-		    }
-	    },
         removeName(name) {
             if (confirm("Sind Sie sich sicher, dass sie "+name+" von dem Eintrag entfernen wollen?")) {
                 this.name_list.splice(this.name_list.indexOf(name), 1)
             }
         },
-        async toggleCheckbox() {
-            // Soll ein Eintrag toggeln oder einmal abgehakt und fertig? 
-            const newEntry = {
-                id: this.entry.id,
-            }
-            const response = await fetch('../api/eintrag/id/'+newEntry.id+'/erledigt' , {
-                method: 'PUT',
-                headers: {
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify(newEntry)
-            })
-            const data = await response.json()
-        }
 	},
-    //emits: ['delete', 'edit'],
 }
 </script>
 <style scoped>
@@ -102,7 +77,7 @@ export default {
 ul {
 	list-style-type: none;
 	padding: 3px;
-    max-width: 800px;
+    max-width: 600px;
     text-align: left;
     margin: auto;
     border: 2px solid inherit;
@@ -132,7 +107,7 @@ li {
      position: absolute;
     right: 5px;
     top: 5px;
-    margin-right: 100px;
+    margin-right: 1px;
 }
 
 #name_box {
@@ -166,6 +141,14 @@ input {
 .button {
     width: 100px;
     text-align: center;
+}
+
+.green {
+    border-left: 10px solid green;
+}
+
+.red {
+    border-left: 10px solid red;
 }
 
 </style>

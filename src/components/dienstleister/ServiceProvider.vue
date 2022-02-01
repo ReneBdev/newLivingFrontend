@@ -9,7 +9,7 @@
 		<li class="book">Buchen</li>
 		
 	</ol>
-	<div class="list" :key="offer.id" v-for="offer in sp.offers">
+	<div class="list" :key="offer.id" v-for="offer in servicelist ">
 		<Offer :offer="offer" />
 	</div>
 </div>
@@ -20,7 +20,8 @@ import Offer from './Offer.vue'
 export default {
 	name: 'ServiceProvider',
     props: {
-        sp: Object,
+		sort: String,
+		servicelist: Array,
     },
 	components: {
         Offer,
@@ -34,6 +35,9 @@ export default {
 			}
 		}
 	},
+	async created() {
+		
+	}
 }
 </script>
 

@@ -1,8 +1,7 @@
 <template>
     <h1 id="heading"> Checkliste </h1>
 	<div id="checklist">
-		<EntryList :entrylist="entrys" type="entry"/>
-        
+		<EntryList :entrylist="entrys" type="entry" @delete="del"/>
 	</div>
     <div class="box" >
         <div class="button" id="send" @click="show=!show" >Eintrag hinzufügen</div>
@@ -58,6 +57,14 @@ export default {
                 body: JSON.stringify(newEntry)
             })
             const data = await response.json()
+
+            this.entrys = await this.fetchEntrys() 
+            this.show = false
+            this.new_entry = ""
+            this.date = ""
+        },
+        async del(){
+            this.entrys = await this.fetchEntrys() 
         }
 	},
     async created() {

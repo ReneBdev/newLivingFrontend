@@ -1,11 +1,15 @@
 <template>
 	<div>
+		<div class="box">
+			<p class="firmname" >{{offer.name}}</p>
+			<p>{{offer.anschrift}}</p>
+		</div>
 		<ol>
-            <li> {{offer.angebot}} </li>
-            <li> {{offer.kaution}}</li>
-            <li> {{offer.preispkm}} </li>
-            <li> {{offer.preisph}}</li>
-            <li> 69,69€ </li>
+            <li> {{offer.typ}} </li>
+            <li> {{offer.kaution}}€</li>
+            <li> {{offer.preisProKilometer}}ct </li>
+            <li> {{offer.preisProStunde}}€</li>
+            <li> {{offer.gesamtPreis}}€ </li>
             <li class="book" @click="book(offer.id)"> Buchen</li>
         </ol>
 	</div>
@@ -21,18 +25,13 @@ export default {
 	},
 	methods: {
 		async book(id) {
-			console.log(id)
-			const buchung = {
-                id: id
-            }
-            const response = await fetch('../api/dienstleistung/id/'+id+'/buchen', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify(buchung)
-            })
+            const response = await fetch('../api/dienstleistung/buchen?id='+id)
             const data = await response.json()
+			if (data) {
+				alert("Erfolgreich "+this.offer.typ+" von "+this.offer.name+" gebucht!")
+			} else {
+				alert("Etwas ist schiefgelaufen")
+			}
 		}
 
 	},
@@ -59,6 +58,23 @@ li {
 	text-align: left;
 	width: 100px;
 	margin: 10px 0px;
+}
+
+.box {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+}
+
+.box > p {
+	margin: 0px;
+	margin-top:20px;
+	padding: 0px;
+	padding-right: 20px;
+}
+
+.firmname {
+	font-weight: bold;
 }
 
 </style>

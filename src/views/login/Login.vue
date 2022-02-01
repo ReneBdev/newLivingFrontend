@@ -11,12 +11,15 @@
 		<div class="button" @click="resetPassword">Passwort vergessen</div>
 		<router-link class="button" to="/registrierung">Registrieren</router-link>
 	</div>
-	
+	<h1>Umzugsplan eines Freundes aufrufen</h1>
+	<div class="login loginInput"> 
+		<input type="text" v-model="code" name="code" placeholder="Geteiten Code hier eingeben" />
+		<div class="button" style="border=none" @click="openGeteilt">Plannung aufrufen</div>
+	</div>
 </template>
 
 <script>
 import Logo from '@/components/other/Logo.vue'
-/* submit.prevent */
 export default {
 	name: 'Login',
 	components: {
@@ -25,11 +28,11 @@ export default {
 	data() {
 		return {
 			email: "",
-			pw: ""
+			pw: "",
+			code: ""
 		}
 	},
 	methods: {
-
 		async onSubmit() {
 			if (!this.email) {
                 alert('Bitte geben Sie eine E-Mail ein.')
@@ -62,9 +65,15 @@ export default {
                 alert('Bitte geben Sie eine E-Mail ein.')
                 return
             }
-			const response = await fetch('api/registrierung/passwort-vergessen?email={'+this.email+'}')
+			const response = await fetch('api/registrierung/passwort-vergessen?email='+this.email)
 			const data = response.json()
-			
+		},
+		openGeteilt() {
+			if ( !this.code) {
+				alert("Bitte einen Code eingeben!") 
+				return
+			}
+			this.$router.push({ name: 'Geteilt', params: { code: this.code} })
 		}
 	},
 	created() {
@@ -86,6 +95,13 @@ export default {
 .loginInput * {
 	width: 100%;
 	border: 2px solid black;
+}
+
+.box {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .button {
