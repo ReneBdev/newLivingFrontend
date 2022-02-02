@@ -123,10 +123,6 @@ li {
     margin: 0px;
 }
 
-.name:hover {
-    color: red;
-}
-
 .show {
     display: flex;
     flex-direction: row;
@@ -149,6 +145,10 @@ input {
 
 .red {
     border-left: 10px solid red;
+}
+
+.entry {
+    padding-left: 10px;
 }
 
 </style>

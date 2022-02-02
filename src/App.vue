@@ -32,10 +32,11 @@ export default {
 			}
 			return false
 		},
+		async refresh() {
+			this.account = await this.fetchProfile()
 	},
-	async refresh() {
-		this.account = await this.fetchProfile()
 	},
+	
 	async created() {
 		this.account = await this.fetchProfile()
 		if (this.account) {
