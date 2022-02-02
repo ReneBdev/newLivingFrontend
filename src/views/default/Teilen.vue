@@ -15,15 +15,15 @@
         
         <h1> </h1>
         <div class="email_field">
-            <input type="email" v-model="new_mail" name="new_mail" placeholder="E-Mail hinzufügen" />    
-            <div class="button" @click="addEmail"> Hinzufügen </div>
+            <input type="email" v-model="new_mail" name="new_mail" placeholder="E-Mail" />    
+            <div class="button" @click="sendEmail"> Senden </div>
         </div>
-        <div :key="mail" v-for="mail in this.email_list">
+        <!--div :key="mail" v-for="mail in this.email_list">
             <p class="email" @click="removeEmail(mail)">{{mail}}</p>
         </div>
         <div id="button_container">
             <div class="button" @click="sendEmails">Einladungen per E-Mail verschicken </div>
-        </div>
+        </div-->
     </div>
 </template>
 
@@ -37,7 +37,7 @@ export default {
 	data() {
         return {
             has_link: false,
-            email_list: [],
+            //email_list: [],
             new_mail: ""
         }
 	},
@@ -52,6 +52,20 @@ export default {
 			const data = await response.json()
             $emit('refresh')
         },
+        async sendEmail() {
+            const body = {
+                email: this.new_mail
+            }
+            const response = await fetch('../api/link/teilen', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify(body)
+            })
+			const data = await response.json()
+        },
+
         addEmail() {
             var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
             if (this.new_mail.match(mailformat)) {

@@ -1,5 +1,5 @@
 <template>
-    <h1 id="heading"> Checkliste </h1>
+    <h1 id="heading"> Umzugsplan </h1>
 	<div id="checklist">
 		<EntryList :entrylist="entrys" type="entry" @delete="del"/>
 	</div>

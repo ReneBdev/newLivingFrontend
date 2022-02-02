@@ -31,7 +31,7 @@
     </div>
 
     <div class="nav" v-show="angemeldet">
-            <router-link to="/">Checkliste</router-link>
+            <router-link to="/">Umzugsplan</router-link>
             <router-link to="/teilen">Teilen</router-link>
             <router-link to="/tipps">Tipps</router-link>
             <router-link to="/dienstleister">Dienstleister</router-link>
