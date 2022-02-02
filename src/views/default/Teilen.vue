@@ -53,16 +53,7 @@ export default {
             $emit('refresh')
         },
         async sendEmail() {
-            const body = {
-                email: this.new_mail
-            }
-            const response = await fetch('../api/link/teilen', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify(body)
-            })
+            const response = await fetch('../api/link/teilen?email='+this.new_mail)
 			const data = await response.json()
         },
 
