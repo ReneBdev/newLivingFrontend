@@ -1,13 +1,13 @@
 <template>
-    <h1>Checkliste Teilen</h1>
+    <h1>Umzugsplan Teilen</h1>
 	<div v-show="!has_link">
-        <p> Wenn du deine Checkliste mit Freunden teilen möchtest, klicke hier:</p>
+        <p> Wenn du den Umzugsplan mit Freunden teilen möchtest, klicke hier:</p>
         <ul>
             <li class="button" @click="requestLink">Freigabelink erstellen</li>
         </ul>
 	</div>
     <div v-show="has_link">
-        <p> Link zur Checkliste: <span>{{this.account.link}}</span> </p>
+        <p> Link zum Umzugsplan: <span>{{this.account.link}}</span> </p>
         <div id="button_container">
             <div class="button" id="kopieren" @click="kopieren">Kopieren</div>
             <div class="button" @click="deactivate" style="background: darkred; border-color: darkred">Link deaktivieren</div>
@@ -15,15 +15,9 @@
         
         <h1> </h1>
         <div class="email_field">
-            <input type="email" v-model="new_mail" name="new_mail" placeholder="E-Mail" />    
+            <input type="email" v-model="new_mail" name="new_mail" placeholder="E-Mail" />
             <div class="button" @click="sendEmail"> Senden </div>
         </div>
-        <!--div :key="mail" v-for="mail in this.email_list">
-            <p class="email" @click="removeEmail(mail)">{{mail}}</p>
-        </div>
-        <div id="button_container">
-            <div class="button" @click="sendEmails">Einladungen per E-Mail verschicken </div>
-        </div-->
     </div>
 </template>
 
@@ -37,7 +31,6 @@ export default {
 	data() {
         return {
             has_link: false,
-            //email_list: [],
             new_mail: ""
         }
 	},
@@ -54,30 +47,6 @@ export default {
         },
         async sendEmail() {
             const response = await fetch('../api/link/teilen?email='+this.new_mail)
-			const data = await response.json()
-        },
-
-        addEmail() {
-            var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-            if (this.new_mail.match(mailformat)) {
-                this.email_list.push(this.new_mail),
-                this.new_mail=""
-            } else {
-                alert('Bitte eine gültige E-Mail angeben.'),
-                this.new_mail=""
-            }
-        },
-        removeEmail(mail) {
-            this.email_list.splice(this.email_list.indexOf(mail), 1)
-        },
-        async sendEmails() {
-            const response = await fetch('../api/link/teilen', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify(this.email_list)
-            })
 			const data = await response.json()
         },
         kopieren() {

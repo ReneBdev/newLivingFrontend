@@ -7,7 +7,7 @@
 		<ol>
             <li> {{offer.typ}} </li>
             <li> {{offer.kaution}}€</li>
-            <li> {{offer.preisProKilometer}}ct </li>
+            <li> {{offer.preisProKilometer}}€ </li>
             <li> {{offer.preisProStunde}}€</li>
             <li> {{offer.gesamtPreis}}€ </li>
             <li class="book" @click="book(offer.id)"> Buchen</li>

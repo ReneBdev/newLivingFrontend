@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Checklist from '../views/default/Checklist.vue'
+import Umzugsplan from '../views/default/Umzugsplan.vue'
 import About from '../views/default/About.vue'
 import Tipps from '../views/default/Tipps.vue'
 import Teilen from '../views/default/Teilen.vue'
@@ -13,8 +13,8 @@ import Registrierung from '../views/login/Register.vue'
 const routes = [
   {
     path: '/',
-    name: 'Checklist',
-    component: Checklist
+    name: 'Umzugsplan',
+    component: Umzugsplan
   },
   {
     path: '/about',

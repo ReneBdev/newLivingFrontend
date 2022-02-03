@@ -5,13 +5,6 @@
                 {{entry.text}} 
             </div>
         </li>
-        <div id="name_box">
-            <div :key="name" v-for="name in this.name_list">
-                <p class="name" @click="removeName(name)">{{name}}, </p>
-            </div>
-        </div>
-        
-        
         <div id="date"> {{entry.date}} </div>
 
         <div id="add" @click="this.show = !this.show;">
@@ -39,7 +32,6 @@ export default {
             show: false,
             name: "",
             date: "",
-            name_list: [],
         }
     },
 	methods: {
@@ -60,14 +52,8 @@ export default {
                 body: JSON.stringify(addName)
             })
             const data = await response.json()
-            this.name_list.push(this.name)
             this.show = false;
             this.name = ""
-        },
-        removeName(name) {
-            if (confirm("Sind Sie sich sicher, dass sie "+name+" von dem Eintrag entfernen wollen?")) {
-                this.name_list.splice(this.name_list.indexOf(name), 1)
-            }
         },
 	},
 }
@@ -108,15 +94,6 @@ li {
     right: 5px;
     top: 5px;
     margin-right: 1px;
-}
-
-#name_box {
-    position: absolute;
-    top: 5px;
-    left: 20vw;
-
-    display: flex;
-    flex-direction: row;
 }
 
 .name {

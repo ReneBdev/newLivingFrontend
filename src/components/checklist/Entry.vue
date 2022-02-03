@@ -5,6 +5,13 @@
                 {{entry.text}}
             </div>
         </li>
+        <div id="name_box">
+            <div :key="name" v-for="name in this.name_list">
+                <p class="name" style="margin: 0px;">{{name.name}}, </p>
+            </div>
+        </div>
+
+
         <div id="date"> {{entry.datum}} </div>
 
         <div id="edit" @click="this.show = !this.show;" v-if="!this.entry.vorgabe" >
@@ -36,12 +43,10 @@ export default {
             show: false,
             name: "",
             date: "",
+            name_list: [],
         }
     },
 	methods: {
-		log(id) {
-            navigator.clipboard.writeText(id);
-        },
         async edit() {
             if(!this.name) {
                 alert("Bitte einen Text angeben!")
@@ -81,10 +86,15 @@ export default {
             this.entry.erledigt = !this.entry.erledigt 
             const response = await fetch('../api/eintrag/erledigt?id='+this.entry.id)
             const data = await response.json()
+        },
+        async fetchHelfer() {
+            const response = await fetch('/api/eintrag/helfer?id='+this.entry.id)
+            const data = await response.json()
+            return data
         }
 	},
     async created() {
-        console.log(this.entry)
+        this.name_list = await this.fetchHelfer()
     },
     emits: ['delete']
 }
@@ -162,4 +172,13 @@ input {
     border-left: 10px solid red;
 }
 
+#name_box {
+    position: absolute;
+    margin: 0px;
+    top: 1px;
+    left: 40%;
+
+    display: flex;
+    flex-direction: row;
+}
 </style>

@@ -54,7 +54,6 @@ export default {
             return data
         },
         async updateList(type) {
-            console.log("Hallo")
             this.sort = type
             if (!type) {
                 console.log("Type"+type)
